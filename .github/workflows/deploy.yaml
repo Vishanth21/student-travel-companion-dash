@@ -1,0 +1,60 @@
+# Name of the workflow
+name: Deploy to GitHub Pages
+
+# Controls when the action will run. 
+on:
+  # Triggers the workflow on push events for the main branch
+  push:
+    branches: ["main"]
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+# Sets permissions for the GITHUB_TOKEN to allow deployment
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "deploy"
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest # The type of virtual machine to run the job on
+    steps:
+      # 1. Checks out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      # 2. Sets up the specific version of Node.js
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+          cache: 'npm'
+
+      # 3. Installs dependencies using npm ci for faster, more reliable installs
+      - name: Install dependencies
+        run: npm ci
+
+      # 4. Runs the build script defined in your package.json
+      - name: Build
+        run: npm run build
+
+      # 5. Configures GitHub Pages
+      - name: Setup Pages
+        uses: actions/configure-pages@v4
+
+      # 6. Uploads the build output (the 'dist' folder) as an artifact
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: './dist'
+
+      # 7. Deploys the uploaded artifact to GitHub Pages
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
