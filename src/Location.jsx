@@ -1,9 +1,9 @@
 import styles from "./Location.module.css";
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
+import { coordsContext } from "./App";
 
 function Location() {
-  const [latitude, setLatitude] = useState("Unavailable");
-  const [longitude, setLongitude] = useState("Unavailable");
+  const { coords, setCoords } = useContext(coordsContext);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
 
@@ -16,8 +16,10 @@ function Location() {
     setLoading(true);
     navigator.geolocation.getCurrentPosition(
       (position) => {
-        setLatitude(position.coords.latitude);
-        setLongitude(position.coords.longitude);
+        setCoords({
+          latitude: position.coords.latitude,
+          longitude: position.coords.longitude,
+        });
         setLoading(false);
       },
       (err) => {
@@ -35,12 +37,15 @@ function Location() {
         <div>Fetching location...</div>
       ) : error ? (
         <div className={styles.error}>Error: {error}</div>
-      ) : (
-        <>
-          <div id="latitude">Latitude: {latitude}</div>
-          <div id="longitude">Longitude: {longitude}</div>
-        </>
-      )}
+      ) : (!coords.latitude || !coords.longitude
+
+      ) ? (<p>Click "Get Location" to see the coordinates.</p>) :
+        (
+          <>
+            <div id="latitude">Latitude: {coords.latitude}</div>
+            <div id="longitude">Longitude: {coords.longitude}</div>
+          </>
+        )}
     </div>
   );
 }
