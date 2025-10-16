@@ -2,7 +2,7 @@ import { React, useState, createContext } from "react";
 import TravelMedia from "./TravelMedia.jsx";
 import Location from "./Location.jsx";
 import Weather from "./Weather.jsx";
-
+import Converter from "./Converter.jsx";
 export const coordsContext = createContext();
 
 function App() {
@@ -20,6 +20,7 @@ function App() {
           <Location />
           <Weather />
         </coordsContext.Provider>
+        <Converter/>
       </div>
     </div>
   );
