@@ -10,14 +10,12 @@ function Converter() {
     try {
       const parsedJson = JSON.parse(json);
       const xmlDoc = document.implementation.createDocument("", "", null);
-      const rootElement = xmlDoc.createElement("root");
+      const rootElement = xmlDoc.createElement("travel");
       xmlDoc.appendChild(rootElement);
 
       function buildXml(node, data) {
         if (Array.isArray(data)) {
           data.forEach((item) => {
-            // For array items, create a generic 'item' element
-            // or handle based on the key of the array if needed.
             let element = xmlDoc.createElement("item");
             buildXml(element, item);
             node.appendChild(element);
@@ -36,7 +34,6 @@ function Converter() {
       }
 
       buildXml(rootElement, parsedJson);
-      // Use 'prettify' logic for formatted output
       const serializer = new XMLSerializer();
       const xmlString = serializer.serializeToString(xmlDoc);
       const formattedXml = formatXml(xmlString);
@@ -106,9 +103,8 @@ function Converter() {
       <button className={styles.btn} onClick={handleConvert}>
         Convert to XML
       </button>
-      {error ? (
-        <div className={styles.error}>{error}</div>
-      ) : (
+      {error && <div className={styles.error}>{error}</div>}
+      {xmlData && !error && (
         <div className={styles.output}>
           <pre>{xmlData}</pre>
         </div>

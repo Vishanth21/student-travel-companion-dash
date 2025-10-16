@@ -7,8 +7,8 @@ function TravelMedia() {
     return (
         <div className={styles['travel-media-body']}>
             <h1 className={styles.header}>Travel Media</h1>
-            <video className={styles.video} src={videoUrl} controls preload="auto">Your browser does not support the video tag.</video>
-            <audio className={styles.audio} src={audioUrl} controls preload="auto">Your browser does not support the audio tag.</audio>
+            <video className={styles.video} src={videoUrl} controls preload="metadata">Your browser does not support the video tag.</video>
+            <audio className={styles.audio} src={audioUrl} controls preload="metadata">Your browser does not support the audio tag.</audio>
         </div>
     )
 }

@@ -2,11 +2,17 @@
   border: 1px solid #ccc;
   border-radius: 8px;
   padding: 20px;
-  margin: 20px;
+  margin: 0;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   background-color: #f9f9f9;
-  width: 40%;
-  height: 40%;
+  width: auto;
+  height: auto;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.travel-media-body:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
 }
 
 .header {

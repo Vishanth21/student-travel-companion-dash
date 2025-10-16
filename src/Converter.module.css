@@ -2,10 +2,10 @@
   border: 1px solid #ccc;
   border-radius: 10px;
   padding: 25px;
-  margin: 20px auto;
+  margin: 0;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   background-color: #f9f9f9;
-  width: 40%;
+  width: auto;
   height: auto;
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
@@ -50,8 +50,8 @@
 }
 
 .output {
-  background-color: hsl(0, 0%, 69%);
-  color: #000000;
+  background-color: #2d2d2d; /* Darker background */
+  color: #f1f1f1; /* Lighter text */
   padding: 15px;
   border-radius: 6px;
   overflow-x: auto;

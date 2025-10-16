@@ -3,6 +3,8 @@ import TravelMedia from "./TravelMedia.jsx";
 import Location from "./Location.jsx";
 import Weather from "./Weather.jsx";
 import Converter from "./Converter.jsx";
+import "./App.css";
+
 export const coordsContext = createContext();
 
 function App() {
@@ -12,17 +14,17 @@ function App() {
   });
 
   return (
-    <div className="main-dash">
-      <h1>Smart Travel Companion Dashboard</h1>
-      <div className="cards">
-        <TravelMedia />
-        <coordsContext.Provider value={{ coords, setCoords }}>
+    <coordsContext.Provider value={{ coords, setCoords }}>
+      <div className="main-dash">
+        <h1>Smart Travel Companion Dashboard</h1>
+        <div className="cards">
+          <TravelMedia />
           <Location />
           <Weather />
-        </coordsContext.Provider>
-        <Converter/>
+          <Converter />
+        </div>
       </div>
-    </div>
+    </coordsContext.Provider>
   );
 }
 
